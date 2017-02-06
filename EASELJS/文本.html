@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文本</title>
+    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+    <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
+    <!-- <script src="./颜色小游戏.js"></script> -->
+</head>
+<body onload="init()">
+<canvas width="1000" height="800" style="border: black solid 1px" id="canvas"></canvas>a
+<script>
+
+    var stage = new createjs.Stage('canvas');
+
+    var txt = new createjs.Text('0', '20px Arial', '#ff7700');
+    txt.text = 'Score: ';
+    txt.text += 1000;
+    stage.addChild(txt);
+    stage.update();
+
+    function drawLetters() {
+        var i, char, txt, btn;
+        var cnt = 0;
+        
+    }
+</script>
+</body>
+</html>

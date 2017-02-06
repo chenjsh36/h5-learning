@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现滚动加载条</title>
+    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+    <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
+</head>
+<body onload="" style="margin: 20px">
+<canvas id="canvas" width="1024" height="768" style="border: black solid 1px">
+    
+</canvas>
+<script>
+var circle = new createjs.Shape();
+var stage = new createjs.Stage(document.getElementById('canvas'));
+
+// 设置刷新
+createjs.Ticker.setFPS(60);
+createjs.Ticker.addEventListener('tick', function(e) {
+    stage.update();
+})
+
+// 新建圆形
+circle.graphics.beginFill('#0000FF').drawCircle(0, 0, 50);
+circle.x = stage.canvas.width / 2;
+circle.y = stage.canvas.width / 2;
+circle.name = 'blue circle'
+stage.addChild(circle);
+stage.update();
+circle.addEventListener('dblclick', function(e) {
+    alert(e.target + 'was double clicked');
+})
+
+stage.enableMouseOver();
+circle.cursor = 'pointer';
+circle.addEventListener('mouseover', function(e) {
+    circle.alpha = 1;
+})
+circle.addEventListener('mouseout', function(e) {
+    circle.alpha = .5;
+})
+circle.addEventListener('mousedown', function(e) {
+    stage.addEventListener('stagemousemove', function(e) {
+        // console.log('move:', stage.mouseX, stage.mouseY);
+        circle.x = stage.mouseX;
+        circle.y = stage.mouseY;
+    })
+    stage.addEventListener('stagemouseup', function(e) {
+        e.target.removeAllEventListeners();
+    });
+})
+</script>
+</body>
+</html>

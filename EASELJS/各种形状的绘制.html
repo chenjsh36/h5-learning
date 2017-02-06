@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EaselJS: 画个圈</title>
+    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+    
+</head>
+<body onload="init();">
+    <canvas id="demoCanvas" width="500" height="300"></canvas>
+    <script>
+        /*function init() {
+            var stage = new createjs.Stage('demoCanvas');
+            var circle = new createjs.Shape();
+            circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
+            circle.x = 100;
+            circle.y = 100;
+            stage.addChild(circle);
+            stage.update();
+        }*/
+        var stage;
+        function init() {
+            stage = new createjs.Stage('demoCanvas');
+            createjs.Ticker.setFPS(60);
+            createjs.Ticker.addEventListener('tick', tick);
+
+            var screen = drawScreen(stage);
+            stage.addChild(screen);
+
+            var square = drawSquare();
+            stage.addChild(square);
+
+            var star = drawStar();
+            stage.addChild(star);
+
+
+
+            var roundedRect = drawRoundedRect();
+            stage.addChild(roundedRect);
+
+            var triangle = drawTriangle();
+            stage.addChild(triangle);
+
+            var circle = drawCircle();
+            stage.addChild(circle);
+        }
+        function drawScreen(s) {
+            var screen = new createjs.Shape();
+            screen.graphics.beginFill(createjs.Graphics.getRGB(0, 0, 0, .6));
+            screen.graphics.drawRect(0, 0, s.canvas.width, s.canvas.height);
+            return screen;
+        }
+        function drawSquare() {
+            var g = new createjs.Graphics().beginStroke('#000').beginFill('#ff0000').drawRect(0, 0, 100, 100);
+            var square = new createjs.Shape(g);
+            square.x = square.y = 100;
+            return square;
+        }
+        function drawCircle() {
+            var circle = new createjs.Shape();
+            circle.graphics.beginStroke('#000');
+            circle.graphics.beginFill('#fff000');
+            circle.graphics.drawCircle(0, 0, 50);
+            circle.x = 250;
+            circle.y = 70;
+            return circle;
+        }
+        function drawStar() {
+            var poly = new createjs.Shape();
+            poly.graphics.beginStroke('#000');
+            poly.graphics.beginFill('#90abc2');
+            poly.graphics.drawPolyStar(0, 0, 60, 5, .6);
+            poly.x = 400;
+            poly.y = 70;
+            return poly;
+        }
+        function drawTriangle() {
+            var tri = new createjs.Shape();
+            tri.graphics.beginStroke('#000');
+            tri.graphics.moveTo(50, 0)
+                .lineTo(0, 100)
+                .lineTo(100, 100)
+                .lineTo(50, 0)
+                ;
+            tri.x = 20;
+            tri.y = 150;
+            stage.addChild(tri);
+        }
+        function drawRoundedRect() {
+            var roundedRect = new createjs.Shape();
+            roundedRect.graphics.beginStroke('#000');
+            roundedRect.graphics.beginFill('#f7d0d1');
+            roundedRect.graphics.drawRoundRect(0, 0, 200, 100, 10);
+            roundedRect.x = roundedRect.y = 150;
+            return roundedRect;
+        }
+        function tick(e) {
+            stage.update();
+        }
+    </script>
+</body>
+</html>

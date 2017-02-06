@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EaselJS: 移动的五角星</title>
+    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+    <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
+</head>
+<body onload="init();">
+    <canvas id="demoCanvas" width="500" height="300"></canvas>
+    <script>
+        var stage;
+        var speed = 10;
+        var direction = 1;
+        var star;
+        function init() {
+            stage = new createjs.Stage('demoCanvas');
+            createjs.Ticker.setFPS(60);
+            createjs.Ticker.addEventListener('tick', tick);
+
+            var screen = drawScreen(stage);
+            stage.addChild(screen);
+
+            star = drawStar();
+            star.x = stage.canvas.width / 2;
+            star.y = stage.canvas.height / 2;
+            stage.addChild(star);
+            console.log(star);
+            createjs.Tween.get(star).to({ rotation: 360 }, 3000);
+        }
+        function drawScreen(s) {
+            var screen = new createjs.Shape();
+            screen.graphics.beginFill(createjs.Graphics.getRGB(0, 0, 0, .6));
+            screen.graphics.drawRect(0, 0, s.canvas.width, s.canvas.height);
+            return screen;
+        }
+        function drawStar() {
+            var poly = new createjs.Shape();
+            poly.graphics.beginStroke('#000');
+            poly.graphics.beginFill('#90abc2');
+            poly.graphics.drawPolyStar(0, 0, 60, 5, .6);
+            poly.x = 400;
+            poly.y = 70;
+            return poly;
+        }
+        function updateStar() {
+            var nextX = star.x + (speed * direction);
+            if (nextX > stage.canvas.width - 30) {
+                nextX = stage.canvas.width - 30;
+                direction *= -1;
+            } else if (nextX < 30) {
+                nextX = 30;
+                direction *= -1;
+            }
+            star.nextX = nextX;
+        }
+        function renderStar() {
+            star.x = star.nextX;
+        }
+        function tick(e) {
+            updateStar();
+            renderStar();
+            stage.update();
+        }
+    </script>
+</body>
+</html>
