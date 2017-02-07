@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>container</title>
+    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+    <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
+</head>
+<body onload="init()">
+    <canvas id="canvas" width="1000" height="600" style="border: black solid 1px"></canvas>
+    <script>
+        var stage;
+        function init() {
+            stage = new createjs.Stage('canvas');
+            createjs.Ticker.setFPS(60);
+            createjs.Ticker.addEventListener("tick", function (e) {
+                stage.update();
+            });
+            sample2();
+        }
+        function sample() {
+            var container1 = new createjs.Container();
+            var container2 = new createjs.Container();
+            var pepper = new createjs.Bitmap('img/pepper.png')
+            var circle = new createjs.Shape(new createjs.Graphics().beginFill('#FF0000').drawCircle(0, 0, 50));
+            var square = new createjs.Shape(new createjs.Graphics().beginFill('#00FF00').drawRect(0, 0, 50, 50));
+            var txt = new createjs.Text("Hello Containers", "20px Arial", "#000");
+            var bg = new createjs.Shape(new createjs.Graphics().beginStroke('#000').drawRect(0, 0, 250, 250));
+            container1.addChild(bg);
+            bg = new createjs.Shape(new createjs.Graphics().beginStroke('#000').drawRect(0, 0, 250, 250));
+            container2.addChild(bg);
+            txt.x = txt.y = 10;
+            circle.x = circle.y = 125;
+            container1.addChild(txt, circle);
+            square.x = square.y = 10;
+            pepper.x = pepper.y = 100;
+            container2.addChild(square, pepper);
+            container1.x = 20;
+            container2.x = 320;
+            container1.y = container2.y = 40;
+            stage.addChild(container1, container2);
+            stage.update();
+
+            var container3 = new createjs.Container();
+            var circle3 = new createjs.Shape(new createjs.Graphics().beginFill('#0000ff').drawCircle(0, 0, 50));
+            circle3.x = circle3.y = 125;
+            var bg3 = new createjs.Shape(new createjs.Graphics().beginStroke('#000').drawRect(0, 0, 250, 250));
+            container3.addChild(bg3, circle3);
+            container3.x = 320 + 250 + 70;
+            container3.y = 40;
+            stage.addChild(container3);
+            stage.update();
+        }
+        function sample2() {
+            var container = new createjs.Container();
+            var pepper = new createjs.Bitmap('img/pepper.png');
+            var bg = new createjs.Shape(new createjs.Graphics().beginStroke('#000').drawRect(0, 0, 250, 250));
+            pepper.x = 10;
+            container.addChild(bg, pepper);
+            container.x = 100;
+            container.y = 100;
+            stage.addChild(container);
+            stage.update();
+            createjs.Tween.get(container).to({rotation: 360}, 4000);
+        }
+    </script>
+</body>
+</html>
